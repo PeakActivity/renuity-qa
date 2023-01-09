@@ -1,0 +1,25 @@
+{
+  "name": "renuity-qa",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "blogs": "npx playwright test blog"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeakActivity/renuity-qa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PeakActivity/renuity-qa/issues"
+  },
+  "homepage": "https://github.com/PeakActivity/renuity-qa#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.29.2"
+  },
+  "dependencies": {
+    "luxon": "^3.2.1"
+  }
+}
