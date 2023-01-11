@@ -1,5 +1,13 @@
 name: Playwright Tests
 on:
+  workflow_dispatch:
+    inputs:
+      testPage:
+        description: 'url of page under test'
+        required: true
+      prodPage:
+        description: 'url of prod page'
+        required: true
   # Allows external webhook trigger
   repository_dispatch:
     types:
@@ -18,7 +26,10 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      run: |
+        $testPage = "${{ github.event.inputs.testPage }}"
+        $prodPage = "${{ github.event.inputs.prodPage }}"
+        npx playwright test
     - uses: actions/upload-artifact@v3
       if: always()
       with:
