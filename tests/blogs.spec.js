@@ -1,5 +1,6 @@
 const { DateTime } = require("luxon");
-const {test, expect} = require("@playwright/test");
+const {expect} = require("@playwright/test");
+const base = require('@playwright/test');
 
 const PROD = "https://www.paradisehomeimprove.com";
 const PROD_PATH = "/blog";
