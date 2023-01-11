@@ -26,12 +26,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run tests step
-      uses: actions/
-    - name: Run Playwright tests
-      run: |
-        $testPage = "${{ github.event.inputs.testPage }}"
-        $prodPage = "${{ github.event.inputs.prodPage }}"
-        npx playwright test
+      uses: actions/paramTest
     - uses: actions/upload-artifact@v3
       if: always()
       with:
