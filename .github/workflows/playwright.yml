@@ -27,6 +27,7 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run tests step
       uses: actions/paramTest@v1
+      uses: './'
       with:
         testPage: '${{ github.event.inputs.testPage }}'
         prodPage: '${{ github.event.inputs.prodPage }}'
