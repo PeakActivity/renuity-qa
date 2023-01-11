@@ -1,6 +1,4 @@
-const { DateTime } = require("luxon");
-const {expect} = require("@playwright/test");
-const base = require('@playwright/test');
+const {expect, test} = require("@playwright/test");
 
 const PROD = "https://www.paradisehomeimprove.com";
 const PROD_PATH = "/blog";
@@ -11,9 +9,10 @@ const TEST_PATH = "/manage-blogs";
 const SLUG = "/p.210119000/how-can-i-stop-condensation-from-forming-on-my-windows";
 
 const slug_split = SLUG.split(`/`)[2];
-const PROD_PAGE = `${PROD}${PROD_PATH}${SLUG}`;
-const TEST_PAGE = `${TEST}${TEST_PATH}/${slug_split}`;
-
+//const PROD_PAGE = `${PROD}${PROD_PATH}${SLUG}`;
+//const TEST_PAGE = `${TEST}${TEST_PATH}/${slug_split}`;
+const PROD_PAGE = `https://www.statewideremodeling.com/blog/p.201228000/bathroom-lighting-ideas-to-create-a-dreamy-atmosphere/`
+const TEST_PAGE = `https://statewidemodev.wpengine.com/blog/bathroom-lighting-ideas-to-create-a-dreamy-atmosphere/`
 /*
 QA Passed
 Verified:
