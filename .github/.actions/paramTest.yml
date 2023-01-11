@@ -1,0 +1,13 @@
+name: 'Params for tests'
+description: 'Runs tests with params'
+inputs:
+  testPage:
+    description: 'url of page under test'
+    required: true
+  prodPage:
+    description: 'url of prod page'
+    required: true
+outputs:
+  testResults:
+    description: 'returns the failed tests'
+runs: npx playwright test comp

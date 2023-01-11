@@ -25,6 +25,8 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Run tests step
+      uses: actions/
     - name: Run Playwright tests
       run: |
         $testPage = "${{ github.event.inputs.testPage }}"
