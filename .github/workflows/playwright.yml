@@ -27,6 +27,8 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run tests step
       uses: './'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         testPage: '${{ github.event.inputs.testPage }}'
         prodPage: '${{ github.event.inputs.prodPage }}'
