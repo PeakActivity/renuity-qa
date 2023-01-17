@@ -32,4 +32,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ticket: ${{ github.event.client_payload.ticket }}
+          jira_token: ${{ secrets.JIRA_TOKEN }}
 
