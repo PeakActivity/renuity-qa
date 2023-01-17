@@ -31,4 +31,5 @@ jobs:
         uses: './'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ticket: ${{ github.event.client_payload.ticket }}
 

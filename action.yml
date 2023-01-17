@@ -7,6 +7,9 @@ inputs:
   prodPage:
     description: 'url of prod page'
     required: true
+  ticket:
+    description: 'jira ticket number'
+    required: false
 outputs:
   results:
     description: 'returns the failed tests'
