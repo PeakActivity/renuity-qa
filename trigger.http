@@ -1,7 +1,7 @@
 
 
 ### Trigger the official way
-POST https://api.github.com/repos/LinaZhukov/actions/dispatches
+POST https://api.github.com/repos/PeakActivity/renuity-qa/dispatches
 Accept: application/vnd.github.everest-preview+json
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
