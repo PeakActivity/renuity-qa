@@ -1,5 +1,7 @@
 const core = require('@actions/core');
 const pack = require('./packageFile')
+const {addComment} = require('./modules/jira')
+
 
 try {
 
@@ -10,12 +12,22 @@ try {
 
     const {passed, failed} = pack();
 
-    console.log(`${failed.length} tests failed`);
-    console.table(failed)
-    console.log(`${passed.length} tests passed`);
-    console.table(passed)
+    const PASS = !failed?.length;
 
-    return {passed, failed};
+    let message = `QA ${PASS ? 'PASSED:' : 'FAILED:'}`;
+    for(const i of failed){
+        message += `\n\t- ${i.title} : ${i.status}`
+        for(const e of i.error){
+            message += `\n\t\t- ${e}`
+        }
+    }
+
+    for (const i of passed) {
+        message += `\n\t- ${i.title} : ${i.status}`
+    }
+
+    addComment(message);
+    return message;
 } catch (error) {
     core.setFailed(error.message);
 }
