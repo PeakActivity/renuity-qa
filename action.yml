@@ -8,6 +8,8 @@ inputs:
     description: 'url of prod page'
     required: true
 outputs:
-  testResults:
+  results:
     description: 'returns the failed tests'
-runs: npx playwright test comp
+runs:
+  using: node16
+  main: 'index.js'
