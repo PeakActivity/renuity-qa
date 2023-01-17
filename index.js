@@ -3,13 +3,12 @@ const pack = require('./packageFile')
 
 try {
 
-    const testPage = core.getInput('testPage');
-    const prodPage = core.getInput('prodPage');
-    const ticket = core.getInput('ticket');
+    const testPage = process.env.testPage;
+    const prodPage = process.env.prodPage;
+    const ticket = process.env.ticket;
     console.log({testPage, prodPage, ticket});
 
     const {passed, failed} = pack();
-    console.log('done packing')
 
     console.log(`${failed.length} tests failed`);
     console.table(failed)
