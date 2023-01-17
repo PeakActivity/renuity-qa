@@ -2,18 +2,14 @@ const core = require('@actions/core');
 const { DateTime } = require("luxon");
 const {expect, test} = require("@playwright/test");
 
-const PROD_PAGE = core.getInput('prodPage');
-const TEST_PAGE = core.getInput('testPage');
-/*
-QA Passed
-Verified:
- - title
- - description
- - featured image
- - content
- - published date
- - tags
-* */
+let PROD_PAGE;
+let TEST_PAGE;
+test.beforeAll(() => {
+        PROD_PAGE = process.env.prodPage; //core.getInput('prodPage');
+        TEST_PAGE = process.env.testPage; //core.getInput('testPage');
+        console.log('starting tests for ', {PROD_PAGE, TEST_PAGE})
+    }
+)
 
 const cleanList = (items) => items.map(i => i?.trim()).filter(i => i).sort()
 
