@@ -1,5 +1,5 @@
 
-const JiraApi = require('jira-client');
+const {JiraApi} = require('jira-client');
 const token = process.env.jira_token;
 
 function jiraClient (){
