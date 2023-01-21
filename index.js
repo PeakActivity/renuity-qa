@@ -8,7 +8,7 @@ function formatResults(ticket, results){
         message += `\n- ${i.title} : ${i.status}`
         if(i.error){
             passed  = false;
-            for(const e of i.error){
+            for(const e of i?.error){
                 message += `\n\t- ${e}`
             }
         }
@@ -24,12 +24,12 @@ try {
 
     const ticket = process.env.ticket;
 
-    const {result, passed} = pack();
+    const results = pack();
 
-    const _results = formatResults(ticket, result)
-    core.setOutput('results', _results)
+    const {result, passed} = formatResults(ticket, results)
+    core.setOutput('results', result)
     core.setOutput('passed', passed)
-    return _results;
+    return {result, passed};
 } catch (error) {
     core.setFailed(error.message);
 }

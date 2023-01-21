@@ -37,14 +37,13 @@ function pack() {
                 }
 
                 test.error = [...clean];
-                console.log(test)
             }
 
 
             results.push(test)
         }
 
-        return {results}
+        return results
     } catch (err) {
         console.error(err);
     }
