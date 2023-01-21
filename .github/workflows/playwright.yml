@@ -10,6 +10,9 @@ on:
       prodPage:
         description: 'url of prod page'
         required: true
+      ticket:
+        description: 'jira ticket number'
+        required: true
 
 jobs:
   test:
