@@ -35,12 +35,14 @@ jobs:
           ticket: ${{ github.event.client_payload.ticket }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
       - name: Login to jira
+        if: always()
         uses: atlassian/gajira-login@v3
         env:
             JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
             JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
             JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Comment on issue
+        if: always()
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ github.event.client_payload.ticket }}
