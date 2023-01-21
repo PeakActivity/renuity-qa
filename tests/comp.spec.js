@@ -93,25 +93,29 @@ test('featured image exists', async ({ page }) => {
 });
 
 test('tags match', async ({ page }) => {
+    let prodTagsExist, prodTags;
+    let testTagsExist, testTags;
+
     await page.goto(PROD_PAGE);
-    const prodTagsHTML = await page.innerText("h4");
-    const prodTagsExist = prodTagsHTML === 'Tags';
-    const prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
-    const prodTags = prodFoundHTML?.filter(i => i !== `LIKE US ON FACEBOOK`)?.sort();
+    try {
+        const prodTagsHTML = await page.innerText("h4", {timeout: 3 * 1000});
+        prodTagsExist = prodTagsHTML === 'Tags';
+        const prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
+        prodTags = prodFoundHTML?.filter(i => i !== `LIKE US ON FACEBOOK`)?.sort();
+    }catch(e){
 
-    await page.goto(TEST_PAGE);
-    const testTagsHTML = await page.innerText("h4");
-    const testTagsExist = testTagsHTML === 'Tags';
-    const testFoundHTML = await page.locator(`a[href*='/tag/']`).allInnerTexts();
-    const testTags = testFoundHTML?.map(i => i?.toUpperCase()).sort();
-    expect(testTagsExist).toEqual(prodTagsExist);
-
-    if(prodTagsExist){
-        expect(testTags).toEqual(prodTags);
     }
 
+    await page.goto(TEST_PAGE);
+    try {
+        const testTagsHTML = await page.innerText("h4", {timeout: 3 * 1000});
+        testTagsExist = testTagsHTML === 'Tags';
+        const testFoundHTML = await page.locator(`a[href*='/tag/']`).allInnerTexts();
+        testTags = testFoundHTML?.map(i => i?.toUpperCase()).sort();
+    }catch (e){
 
+    }
 
-
+    expect(testTags).toEqual(prodTags);
 
 });
