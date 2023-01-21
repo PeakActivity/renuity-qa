@@ -24,9 +24,9 @@ try {
     const {passed, failed} = pack();
     const PASS = !failed?.length;
 
-    const message = formatResults(passed, failed, ticket)
+    const results = formatResults(passed, failed, ticket)
 
-    return message;
+    return {results};
 } catch (error) {
     core.setFailed(error.message);
 }

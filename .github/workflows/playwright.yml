@@ -38,8 +38,7 @@ jobs:
           ticket: ${{ github.event.client_payload.ticket }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
       - name: output test
-        needs: format
-        run: echo ${{ needs.format.outputs.results }}
+        run: echo ${{ steps.format.outputs.results }}
       - name: Login to jira
         id: login
         if: always()
@@ -50,11 +49,8 @@ jobs:
             JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Comment on issue
         if: always()
-        needs:
-          - format
-          - login
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ github.event.client_payload.ticket }}
-          comment: ${{ needs.format.outputs.results }}
+          comment: ${{ steps.format.outputs.results }}
 
