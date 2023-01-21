@@ -23,7 +23,7 @@ function pack() {
             }
 
 
-            if(test.status === 'fail'){
+            if(test.status === 'FAIL'){
                 const clean = [];
                 for (const i of test.error){
                     if (i && !i.includes('expect(received)')){

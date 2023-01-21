@@ -80,18 +80,6 @@ test('publish date matches', async ({ page }) => {
     await expect(testDateFormatted).toEqual(prodDateFormatted);
 });
 
-test.skip('featured image exists', async ({ page }) => {
-    await page.goto(TEST_PAGE);
-    const testDateHTML = await page.innerText(".yoast-schema-graph");
-    const testDateParsed = (JSON.parse(testDateHTML))["@graph"]
-    const testImage = testDateParsed.map(i => i.thumbnailUrl).filter(i => i)[0];
-
-    console.log(testImage)
-    if(!testImage){
-        throw new Error('featured image is missing')
-    }
-});
-
 test('tags match', async ({ page }) => {
     let prodTagsExist, prodTags;
     let testTagsExist, testTags;

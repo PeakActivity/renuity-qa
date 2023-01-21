@@ -37,9 +37,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ticket: ${{ github.event.client_payload.ticket }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
-      - name: output test
-        if: always()
-        run: echo ${{ steps.format.outputs.results }}
       - name: Login to jira
         id: login
         if: always()
