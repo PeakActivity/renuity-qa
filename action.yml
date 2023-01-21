@@ -13,6 +13,8 @@ inputs:
 outputs:
   results:
     description: 'returns the failed tests'
+  passed:
+    description: 'pass fail of all tests'
 runs:
   using: node16
   main: 'index.js'
