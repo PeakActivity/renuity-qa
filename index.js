@@ -25,8 +25,8 @@ try {
     const PASS = !failed?.length;
 
     const results = formatResults(passed, failed, ticket)
-
-    return {results};
+    core.setOutput('results', results)
+    return results;
 } catch (error) {
     core.setFailed(error.message);
 }
