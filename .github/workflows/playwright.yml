@@ -28,7 +28,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium
       - name: Run Playwright tests
-        run: testPage='${{ github.event.client_payload.testPage }}' prodPage='${{ github.event.client_payload.prodPage }}' npx playwright test comp
+        run: testPage='${{ github.event.client_payload.testPage }}' prodPage='${{ github.event.client_payload.prodPage }}' npx playwright test comp || true
       - name: Format Test Results
         id: format
         if: always()

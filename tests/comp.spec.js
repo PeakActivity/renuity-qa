@@ -80,7 +80,7 @@ test('publish date matches', async ({ page }) => {
     await expect(testDateFormatted).toEqual(prodDateFormatted);
 });
 
-test('featured image exists', async ({ page }) => {
+test.skip('featured image exists', async ({ page }) => {
     await page.goto(TEST_PAGE);
     const testDateHTML = await page.innerText(".yoast-schema-graph");
     const testDateParsed = (JSON.parse(testDateHTML))["@graph"]

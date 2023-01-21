@@ -10,13 +10,14 @@ function pack() {
 
         const passed = [];
         const failed = [];
+        const results = []
 
         for( const i of suite){
             const error = i.tests[0]?.results[0]?.error?.message;
 
             const test = {
                 title: i.title,
-                status: i.tests[0]?.status === 'expected' ? 'pass' : 'fail',
+                status: i.tests[0]?.status === 'expected' ? 'pass' : 'FAIL',
             }
 
             if(error){
@@ -41,9 +42,10 @@ function pack() {
             }else {
                 failed.push(test);
             }
+            results.push(test)
         }
 
-        return {failed, passed}
+        return {failed, passed, results}
     } catch (err) {
         console.error(err);
     }
