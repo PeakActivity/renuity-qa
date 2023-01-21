@@ -8,8 +8,6 @@ function pack() {
         const data = JSON.parse(_data);
         const suite = data?.suites?.[0]?.specs;
 
-        const passed = [];
-        const failed = [];
         const results = []
 
         for( const i of suite){
@@ -35,17 +33,11 @@ function pack() {
                 test.error = [...clean];
             }
 
-            //console.log(test)
 
-            if(test.status === 'pass'){
-                passed.push(test);
-            }else {
-                failed.push(test);
-            }
             results.push(test)
         }
 
-        return {failed, passed, results}
+        return {results}
     } catch (err) {
         console.error(err);
     }

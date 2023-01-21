@@ -1,30 +1,31 @@
 const core = require('@actions/core');
 const pack = require('./packageFile')
 
-function formatResults(passed, failed, ticket, results){
-    const PASS = !failed?.length;
-    let message = `QA ${PASS ? `PASSED` : `FAILED`}`;
+function formatResults(ticket, results){
+    let PASS = true;
+    let message = ``;
     for(const i of results){
         message += `\n- ${i.title} : ${i.status}`
         if(i.error){
+            PASS  = false;
             for(const e of i.error){
-                message += `\n    - ${e}`
+                message += `\n\t- ${e}`
             }
         }
-
     }
 
-    return message;
+    let summary = `QA ${PASS ? `PASSED` : `FAILED`}`;
+
+    return summary+message;
 }
 
 try {
 
     const ticket = process.env.ticket;
 
-    const {passed, failed, results} = pack();
-    const PASS = !failed?.length;
+    const {results} = pack();
 
-    const _results = formatResults(passed, failed, ticket, results)
+    const _results = formatResults(ticket, results)
     core.setOutput('results', _results)
     return _results;
 } catch (error) {
