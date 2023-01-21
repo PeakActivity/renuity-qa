@@ -27,10 +27,22 @@ jobs:
       - name: Run Playwright tests
         run: testPage='${{ github.event.client_payload.testPage }}' prodPage='${{ github.event.client_payload.prodPage }}' npx playwright test comp
       - name: Format Test Results
+        id: format
         if: always()
         uses: './'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ticket: ${{ github.event.client_payload.ticket }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
+      - name: Login to jira
+        uses: atlassian/gajira-login@v3
+        env:
+            JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+            JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+            JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Comment on issue
+        uses: atlassian/gajira-comment@v3
+        with:
+        issue: ${{ github.event.client_payload.ticket }}
+        comment: ${{ steps.format.outputs.results }}
 

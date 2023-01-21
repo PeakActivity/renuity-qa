@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const pack = require('./packageFile')
-const {addComment} = require('./modules/jira')
 
 function formatResults(passed, failed, ticket){
     const PASS = !failed?.length;
@@ -27,8 +26,6 @@ try {
 
     const message = formatResults(passed, failed, ticket)
 
-
-    addComment(message);
     return message;
 } catch (error) {
     core.setFailed(error.message);

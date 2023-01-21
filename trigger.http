@@ -1,10 +1,8 @@
-
-
-### Trigger the official way
+### Trigger the github workflow with params
 POST https://api.github.com/repos/PeakActivity/renuity-qa/dispatches
 Accept: application/vnd.github.everest-preview+json
 Content-Type: application/json
-Authorization: Bearer {{auth_token}}
+Authorization: Bearer {{github_token}}
 
 {
   "event_type": "on-demand-test",
@@ -14,3 +12,9 @@ Authorization: Bearer {{auth_token}}
     "ticket": "REN-809"
   }
 }
+
+### GET JIRA PROJECTS
+GET https://peakactivity.atlassian.net/rest/api/3/project
+Accept: application/json
+Authorization: Basic {{jira_username}} {{jira_token}}
+

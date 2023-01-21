@@ -1,28 +1,7 @@
 const {expect, test} = require("@playwright/test");
 
-const PROD = "https://www.paradisehomeimprove.com";
-const PROD_PATH = "/blog";
-
-const TEST = "https://paradisehomstg.wpengine.com";
-const TEST_PATH = "/manage-blogs";
-
-const SLUG = "/p.210119000/how-can-i-stop-condensation-from-forming-on-my-windows";
-
-const slug_split = SLUG.split(`/`)[2];
-//const PROD_PAGE = `${PROD}${PROD_PATH}${SLUG}`;
-//const TEST_PAGE = `${TEST}${TEST_PATH}/${slug_split}`;
 const PROD_PAGE = `https://www.statewideremodeling.com/blog/p.201228000/bathroom-lighting-ideas-to-create-a-dreamy-atmosphere/`
 const TEST_PAGE = `https://statewidemodev.wpengine.com/blog/bathroom-lighting-ideas-to-create-a-dreamy-atmosphere/`
-/*
-QA Passed
-Verified:
- - title
- - description
- - featured image
- - content
- - published date
- - tags
-* */
 
 const cleanList = (items) => items.map(i => i?.trim()).filter(i => i).sort()
 
@@ -65,7 +44,6 @@ test('content h2 matches', async ({ page }) => {
     await page.goto(TEST_PAGE);
     const testContent = cleanList(await page.locator("h2").allInnerTexts());
 
-    //console.log({prodContent, testContent})
     await expect(testContent).toEqual(prodContent);
 });
 
@@ -83,7 +61,7 @@ test('publish date matches', async ({ page }) => {
     await page.goto(TEST_PAGE);
     const testDateHTML = await page.innerText(".yoast-schema-graph");
     const testDateParsed = (JSON.parse(testDateHTML))["@graph"]
-    const testDateString = testDateParsed.map(i => i.datePublished).filter(i => i)[0];
+    const testDateString = testDateParsed.map(i => i?.datePublished).filter(i => i)[0];
     const testDate = new Date(testDateString);
 
     const prodDateFormatted = prodDate.toDateString();
