@@ -3,12 +3,15 @@ const pack = require('./packageFile')
 
 function formatResults(passed, failed, ticket, results){
     const PASS = !failed?.length;
-    let message = `QA ${PASS ? `PASSED` : `FAILED`}\n`;
+    let message = `QA ${PASS ? `PASSED` : `FAILED`}`;
     for(const i of results){
-        message += `- ${i.title} : ${i.status}`
-        for(const e of i.error){
-            message += `\n\t- ${e}`
+        message += `\n- ${i.title} : ${i.status}`
+        if(i.error){
+            for(const e of i.error){
+                message += `\n    - ${e}`
+            }
         }
+
     }
 
     return message;
