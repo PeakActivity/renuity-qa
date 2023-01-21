@@ -5,9 +5,8 @@ const {expect, test} = require("@playwright/test");
 let PROD_PAGE;
 let TEST_PAGE;
 test.beforeAll(() => {
-        PROD_PAGE = process.env.prodPage; //core.getInput('prodPage');
-        TEST_PAGE = process.env.testPage; //core.getInput('testPage');
-        console.log('starting tests for ', {PROD_PAGE, TEST_PAGE})
+        PROD_PAGE = process.env.prodPage;
+        TEST_PAGE = process.env.testPage;
     }
 )
 
@@ -30,11 +29,10 @@ test('Descriptions match', async ({ page }) => {
 
     await page.goto(TEST_PAGE);
     const testDescr = await page.locator('meta[name="description"]')?.getAttribute('content');
-    //console.log({prodDescr, testDescr})
     await expect(testDescr).toEqual(prodDescr);
 });
 
-test('content h1 matches', async ({ page }) => {
+test('Content h1 matches', async ({ page }) => {
     await page.goto(PROD_PAGE);
     const prodContent = cleanList(await page.locator("h1").allInnerTexts());
 
@@ -45,7 +43,7 @@ test('content h1 matches', async ({ page }) => {
     await expect(testContent).toEqual(prodContent);
 });
 
-test('content h2 matches', async ({ page }) => {
+test('Content h2 matches', async ({ page }) => {
     await page.goto(PROD_PAGE);
     const prodContent = cleanList(await page.locator("h2").allInnerTexts());
 
@@ -62,7 +60,7 @@ test('Yoast SEO exists', async ({ page }) => {
     expect(testContent).toContain('Yoast')
 });
 
-test('publish date matches', async ({ page }) => {
+test('Publish date matches', async ({ page }) => {
     await page.goto(PROD_PAGE);
     const prodDateString = await page.innerText(".post-date");
     const prodDate = new Date(prodDateString);
@@ -80,7 +78,7 @@ test('publish date matches', async ({ page }) => {
     await expect(testDateFormatted).toEqual(prodDateFormatted);
 });
 
-test('tags match', async ({ page }) => {
+test('Tags match', async ({ page }) => {
     let prodTagsExist, prodTags;
     let testTagsExist, testTags;
 

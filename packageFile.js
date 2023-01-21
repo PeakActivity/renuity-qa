@@ -11,6 +11,7 @@ function pack() {
         const results = []
 
         for( const i of suite){
+
             const error = i.tests[0]?.results[0]?.error?.message;
 
             const test = {
@@ -25,12 +26,18 @@ function pack() {
 
             if(test.status === 'FAIL'){
                 const clean = [];
-                for (const i of test.error){
+
+                if(!Array.isArray(test.error)){
+                    test.error = [test.error]
+                }
+                for (const i of test?.error){
                     if (i && !i.includes('expect(received)')){
                         clean.push(i)
                     }
                 }
+
                 test.error = [...clean];
+                console.log(test)
             }
 
 
