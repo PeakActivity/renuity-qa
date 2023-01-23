@@ -10,7 +10,11 @@ test.beforeAll(() => {
     }
 )
 
-const cleanList = (items) => items.map(i => i?.trim()).filter(i => i).sort()
+const cleanList = (items) => items
+    .map(i => i?.trim())
+    .filter(i => i)
+    .map(i => i.replace(`’`,`'`))
+    .sort()
 
 test('Titles match', async ({ page }) => {
     await page.goto(PROD_PAGE);

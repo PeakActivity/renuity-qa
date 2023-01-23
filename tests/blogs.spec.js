@@ -3,7 +3,11 @@ const {expect, test} = require("@playwright/test");
 const PROD_PAGE = `https://www.statewideremodeling.com/blog/p.090813000/welcome-to-statewide-remodelings-new-blog/`
 const TEST_PAGE = `https://statewidemodev.wpengine.com/blog/welcome-to-statewide-remodelings-new-blog/`
 
-const cleanList = (items) => items.map(i => i?.trim()).filter(i => i).sort()
+const cleanList = (items) => items
+    .map(i => i?.trim())
+    .filter(i => i)
+    .map(i => i.replace(`’`,`'`))
+    .sort()
 
 test('Titles match', async ({ page }) => {
     await page.goto(PROD_PAGE);
@@ -31,6 +35,8 @@ test('Content h1 matches', async ({ page }) => {
 
     await page.goto(TEST_PAGE);
     const testContent = cleanList(await page.locator("h1").allInnerTexts());
+
+    console.log({prodContent, testContent})
 
     await expect(testContent).toEqual(prodContent);
 });
