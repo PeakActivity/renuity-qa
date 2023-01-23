@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const pack = require('./packageFile')
+const pack = require('./src/packageFile')
 
 function formatResults(ticket, results){
     let passed = true;
