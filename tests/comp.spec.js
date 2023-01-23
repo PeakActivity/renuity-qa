@@ -94,6 +94,7 @@ test('Tags match', async ({ page }) => {
         prodTags = prodFoundHTML
             ?.filter(i => i !== `LIKE US ON FACEBOOK`)
             ?.filter(i => i !== `Follow us on Pinterest`)
+            ?.map(i => i.toUpperCase())
             ?.sort();
     }catch(e){
 

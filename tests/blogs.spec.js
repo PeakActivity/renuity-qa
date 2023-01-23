@@ -1,12 +1,14 @@
 const {expect, test} = require("@playwright/test");
 
-const PROD_PAGE = `https://www.statewideremodeling.com/blog/p.090813000/welcome-to-statewide-remodelings-new-blog/`
-const TEST_PAGE = `https://statewidemodev.wpengine.com/blog/welcome-to-statewide-remodelings-new-blog/`
+const PROD_PAGE = `https://www.statewideremodeling.com/blog/p.201116000/5-decor-ideas-to-create-a-spa-like-bathroom-on-a-budget/`
+const TEST_PAGE = `https://statewidemodev.wpengine.com/blog/5-decor-ideas-to-create-a-spa-like-bathroom-on-a-budget/`
 
 const cleanList = (items) => items
     .map(i => i?.trim())
     .filter(i => i)
     .map(i => i.replace(`’`,`'`))
+    .map(i => i.replace(`...`, ``))
+    .map(i => i.replace(`…`, ``))
     .sort()
 
 test('Titles match', async ({ page }) => {
@@ -35,8 +37,6 @@ test('Content h1 matches', async ({ page }) => {
 
     await page.goto(TEST_PAGE);
     const testContent = cleanList(await page.locator("h1").allInnerTexts());
-
-    console.log({prodContent, testContent})
 
     await expect(testContent).toEqual(prodContent);
 });
@@ -98,6 +98,7 @@ test('tags match', async ({ page }) => {
         prodTags = prodFoundHTML
             ?.filter(i => i !== `LIKE US ON FACEBOOK`)
             ?.filter(i => i !== `Follow us on Pinterest`)
+            ?.map(i => i.toUpperCase())
             ?.sort();
     }catch(e){
 
