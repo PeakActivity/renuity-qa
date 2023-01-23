@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const pack = require('./src/packageFile')
+const pack = require('./packageFile')
 
 function formatResults(ticket, results){
     let passed = true;
@@ -29,6 +29,7 @@ try {
     const {result, passed} = formatResults(ticket, results)
     core.setOutput('results', result)
     core.setOutput('passed', passed)
+    console.log({passed})
     return {result, passed};
 } catch (error) {
     core.setFailed(error.message);
