@@ -13,8 +13,7 @@ Authorization: Bearer {{github_token}}
   }
 }
 
-### GET JIRA PROJECTS
-GET https://peakactivity.atlassian.net/rest/api/3/project
+### GET JIRA Issue
+GET https://peakactivity.atlassian.net/rest/api/2/issue/REN-809
 Accept: application/json
 Authorization: Basic {{jira_username}} {{jira_token}}
-
