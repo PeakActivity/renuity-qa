@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "blogs": "npx playwright test blog"
+    "blogs": "npx playwright test comp"
   },
   "repository": {
     "type": "git",
