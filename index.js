@@ -9,7 +9,7 @@ function formatResults(ticket, results){
         if(i.error){
             passed  = false;
             for(const e of i?.error){
-                message += `\n\t- ${e}`
+                message += `\n\t ${e}`
             }
         }
     }
