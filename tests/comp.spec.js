@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const { DateTime } = require("luxon");
 const {expect, test} = require("@playwright/test");
+const cleanList = require("../src/cleanList");
 
 let PROD_PAGE;
 let TEST_PAGE;
@@ -10,11 +11,7 @@ test.beforeAll(() => {
     }
 )
 
-const cleanList = (items) => items
-    .map(i => i?.trim())
-    .filter(i => i)
-    .map(i => i.replace(`’`,`'`))
-    .sort()
+
 
 test('Titles match', async ({ page }) => {
     await page.goto(PROD_PAGE);

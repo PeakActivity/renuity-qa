@@ -1,15 +1,8 @@
 const {expect, test} = require("@playwright/test");
+const cleanList = require("../src/cleanList");
 
 const PROD_PAGE = `https://www.statewideremodeling.com/blog/p.201116000/5-decor-ideas-to-create-a-spa-like-bathroom-on-a-budget/`
 const TEST_PAGE = `https://statewidemodev.wpengine.com/blog/5-decor-ideas-to-create-a-spa-like-bathroom-on-a-budget/`
-
-const cleanList = (items) => items
-    .map(i => i?.trim())
-    .filter(i => i)
-    .map(i => i.replace(`’`,`'`))
-    .map(i => i.replace(`...`, ``))
-    .map(i => i.replace(`…`, ``))
-    .sort()
 
 test('Titles match', async ({ page }) => {
     await page.goto(PROD_PAGE);
