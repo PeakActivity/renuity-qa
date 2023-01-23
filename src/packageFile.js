@@ -12,7 +12,7 @@ function pack() {
 
         for( const i of suite){
 
-            const error = i.tests[0]?.results[0]?.error?.message;
+            const error = i.tests[0]?.results?.[0]?.error?.message;
 
             const test = {
                 title: i.title,

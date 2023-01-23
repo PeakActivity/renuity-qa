@@ -51,9 +51,6 @@ jobs:
         with:
           issue: ${{ github.event.client_payload.ticket }}
           comment: ${{ steps.format.outputs.results }}
-      - name: check if passed
-        if: always()
-        run: echo ${{ steps.format.outputs.passed }}
       - name: Transition issue - pass
         if: ${{ steps.format.outputs.passed  == 'true'  }}
         uses: atlassian/gajira-transition@v3
