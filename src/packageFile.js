@@ -29,7 +29,11 @@ function pack() {
                 }
                 for (const i of test?.error){
                     if (i && !i.includes('expect(received)')){
-                        clean.push(i)
+                        if(i === `Test timeout of 30000ms exceeded.`){
+                            clean.push('Missing')
+                        }else{
+                            clean.push(i)
+                        }
                     }
                 }
 
