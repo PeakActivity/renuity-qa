@@ -87,7 +87,10 @@ test('Tags match', async ({ page }) => {
         const prodTagsHTML = await page.innerText("h4", {timeout: 3 * 1000});
         prodTagsExist = prodTagsHTML === 'Tags';
         const prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
-        prodTags = prodFoundHTML?.filter(i => i !== `LIKE US ON FACEBOOK`)?.sort();
+        prodTags = prodFoundHTML
+            ?.filter(i => i !== `LIKE US ON FACEBOOK`)
+            ?.filter(i => i === `Follow us on Pinterest`)
+            ?.sort();
     }catch(e){
 
     }
