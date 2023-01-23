@@ -3,3 +3,5 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 trigger.http
+/test-results.json
+/http-client.private.env.json
