@@ -89,7 +89,7 @@ test('Tags match', async ({ page }) => {
         const prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
         prodTags = prodFoundHTML
             ?.filter(i => i !== `LIKE US ON FACEBOOK`)
-            ?.filter(i => i === `Follow us on Pinterest`)
+            ?.filter(i => i !== `Follow us on Pinterest`)
             ?.sort();
     }catch(e){
 
