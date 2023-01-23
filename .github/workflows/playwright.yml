@@ -55,13 +55,13 @@ jobs:
         if: always()
         run: echo ${{ steps.format.outputs.passed }}
       - name: Transition issue - pass
-        if: ${{ steps.format.outputs.passed == true }}
+        if: ${{ steps.format.outputs.passed  == 'true'  }}
         uses: atlassian/gajira-transition@v3
         with:
           issue: ${{ github.event.client_payload.ticket }}
           transition: "DONE"
       - name: Transition issue - fail
-        if: ${{ !(steps.format.outputs.passed == true ) }}
+        if: ${{ !(steps.format.outputs.passed  == 'true'  ) }}
         uses: atlassian/gajira-transition@v3
         with:
           issue: ${{ github.event.client_payload.ticket }}
