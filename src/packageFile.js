@@ -7,11 +7,9 @@ function pack() {
         const _data = fs.readFileSync(TEST_FILE, 'utf8');
         const data = JSON.parse(_data);
         const suite = data?.suites?.[0]?.specs;
-
         const results = []
 
         for( const i of suite){
-
             const error = i.tests[0]?.results?.[0]?.error?.message;
 
             const test = {
@@ -22,7 +20,6 @@ function pack() {
             if(error){
                 test.error = strip(error)?.split('\n');
             }
-
 
             if(test.status === 'FAIL'){
                 const clean = [];
@@ -38,7 +35,6 @@ function pack() {
 
                 test.error = [...clean];
             }
-
 
             results.push(test)
         }
