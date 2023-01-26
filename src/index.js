@@ -16,6 +16,7 @@ function formatResults(ticket, results) {
 
     let summary = `QA ${passed ? `PASSED` : `FAILED`}`;
     const result = summary + message;
+    console.log(result)
     return {result, passed}
 }
 

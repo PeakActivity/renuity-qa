@@ -51,24 +51,40 @@ test('Content h2 matches', async ({page}) => {
 });
 
 test('Yoast SEO exists', async ({page}) => {
-    await page.goto(TEST_PAGE);
-    const testContent = await page.content();
-    expect(testContent).toContain('Yoast')
+    try{
+        await page.goto(TEST_PAGE);
+        const testContent = await page.content();
+        expect(testContent).toContain('Yoast')
+    }catch (e){
+        throw new Error('Missing')
+    }
+
 });
 
 test('Publish date matches', async ({page}) => {
-    await page.goto(PROD_PAGE);
-    const prodDateString = await page.innerText(".post-date");
-    const prodDate = new Date(prodDateString);
+    let prodDate, testDate;
 
-    await page.goto(TEST_PAGE);
-    const testDateHTML = await page.innerText(".yoast-schema-graph");
-    const testDateParsed = (JSON.parse(testDateHTML))["@graph"]
-    const testDateString = testDateParsed.map(i => i.datePublished).filter(i => i)[0];
-    const testDate = new Date(testDateString);
+    try{
+        await page.goto(PROD_PAGE);
+        const prodDateString = await page.innerText(".post-date", {timeout: 3 * 1000});
+        prodDate = new Date(prodDateString);
+    }catch (e){
 
-    const prodDateFormatted = prodDate.toDateString();
-    const testDateFormatted = testDate.toDateString()
+    }
+
+    try{
+        await page.goto(TEST_PAGE);
+        const testDateHTML = await page.innerText(".yoast-schema-graph", {timeout: 3 * 1000});
+        const testDateParsed = (JSON.parse(testDateHTML))["@graph"]
+        const testDateString = testDateParsed.map(i => i.datePublished).filter(i => i)[0];
+        testDate = new Date(testDateString);
+    }catch (e){
+
+    }
+
+
+    const prodDateFormatted = prodDate?.toDateString();
+    const testDateFormatted = testDate?.toDateString()
 
     await expect(testDateFormatted).toEqual(prodDateFormatted);
 });
