@@ -31,12 +31,14 @@ test('Descriptions match', async ({page}) => {
 
 test('Content h1 matches', async ({page}) => {
     await page.goto(PROD_PAGE);
-    const prodContent = cleanList(await page.locator("h1").allInnerTexts());
+    const prodTags = await page.locator("h1").allInnerTexts()
+    const prodContent = cleanList(prodTags);
 
     await page.goto(TEST_PAGE);
-    const testContent = cleanList(await page.locator("h1").allInnerTexts());
+    const testTags = await page.locator("h1").allInnerTexts()
+    const testContent = cleanList(testTags);
 
-    //console.log({prodContent, testContent})
+    console.log({prodContent, testContent})
     await expect(testContent).toEqual(prodContent);
 });
 
@@ -98,10 +100,15 @@ test('Tags match', async ({page}) => {
         prodTags = prodFoundHTML
             ?.filter(i => i !== `LIKE US ON FACEBOOK`)
             ?.filter(i => i !== `Follow us on Pinterest`)
+            ?.filter(i => i.contains(`PINTEREST`))
             ?.map(i => i.toUpperCase())
             ?.sort();
     } catch (e) {
 
+    }
+
+    if(!prodTags?.length){
+        prodTags = [];
     }
 
     await page.goto(TEST_PAGE);

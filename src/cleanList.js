@@ -1,9 +1,9 @@
 const cleanList = (items) => items
-    .map(i => i?.trim())
     .filter(i => i)
     .map(i => i.replace(`’`,`'`))
     .map(i => i.replace(`...`, ``))
     .map(i => i.replace(`…`, ``))
+    .map(i => i.trim())
     .sort()
 
 module.exports = cleanList;
