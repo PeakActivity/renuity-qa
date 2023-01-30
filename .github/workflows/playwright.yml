@@ -27,6 +27,19 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install chromium
+      - name: Login to jira
+        id: login
+        if: always()
+        uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Transition issue - testing
+        uses: atlassian/gajira-transition@v3
+        with:
+          issue: ${{ github.event.client_payload.ticket }}
+          transition: "TESTING"
       - name: Run Playwright tests
         run: testPage='${{ github.event.client_payload.testPage }}' prodPage='${{ github.event.client_payload.prodPage }}' npx playwright test comp || true
       - name: Format Test Results
@@ -37,14 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ticket: ${{ github.event.client_payload.ticket }}
           jira_token: ${{ secrets.JIRA_TOKEN }}
-      - name: Login to jira
-        id: login
-        if: always()
-        uses: atlassian/gajira-login@v3
-        env:
-            JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-            JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-            JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
       - name: Comment on issue
         if: always()
         uses: atlassian/gajira-comment@v3
