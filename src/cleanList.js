@@ -3,6 +3,7 @@ const cleanList = (items) => items
     .map(i => i.replace(`’`,`'`))
     .map(i => i.replace(`...`, ``))
     .map(i => i.replace(`…`, ``))
+    .map(i => i.replace(/[\u200B-\u200D\uFEFF]/g, ''))
     .map(i => i.trim())
     .sort()
 

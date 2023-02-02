@@ -5,8 +5,8 @@ let PROD_PAGE;
 let TEST_PAGE;
 
 test.beforeAll(() => {
-        PROD_PAGE = process.env.prodPage;
-        TEST_PAGE = process.env.testPage;
+       PROD_PAGE = process.env.prodPage;
+       TEST_PAGE = process.env.testPage;
     }
 )
 
@@ -29,7 +29,7 @@ test('Descriptions match', async ({page}) => {
     await expect(testDescr).toEqual(prodDescr);
 });
 
-test('Content h1 matches', async ({page}) => {
+test.only('Content h1 matches', async ({page}) => {
     await page.goto(PROD_PAGE);
     const prodTags = await page.locator("h1").allInnerTexts()
     const prodContent = cleanList(prodTags);
@@ -38,9 +38,8 @@ test('Content h1 matches', async ({page}) => {
     const testTags = await page.locator("h1").allInnerTexts()
     const testContent = cleanList(testTags);
 
-    const prod = prodContent[0]?.trim();
-    const test = testContent[0]?.trim();
-
+    const prod = prodContent[0];
+    const test = testContent[0];
 
     await expect(test).toEqual(prod);
 });
