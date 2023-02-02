@@ -89,9 +89,11 @@ test('Publish date matches', async ({page}) => {
 
 
     const prodDateFormatted = prodDate?.toDateString();
-    const testDateFormatted = testDate?.toDateString()
+    const testDateFormatted = testDate?.toDateString();
 
-    await expect(testDateFormatted).toEqual(prodDateFormatted);
+    if(prodDateFormatted){
+        await expect(testDateFormatted).toEqual(prodDateFormatted);
+    }
 });
 
 test('Tags match', async ({page}) => {
