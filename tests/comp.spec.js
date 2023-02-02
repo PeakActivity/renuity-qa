@@ -38,7 +38,6 @@ test('Content h1 matches', async ({page}) => {
     const testTags = await page.locator("h1").allInnerTexts()
     const testContent = cleanList(testTags);
 
-    console.log({prodContent, testContent})
     await expect(testContent).toEqual(prodContent);
 });
 
@@ -100,7 +99,7 @@ test('Tags match', async ({page}) => {
         prodTags = prodFoundHTML
             ?.filter(i => i !== `LIKE US ON FACEBOOK`)
             ?.filter(i => i !== `Follow us on Pinterest`)
-            ?.filter(i => i.contains(`PINTEREST`))
+            ?.filter(i => i !== `PINTEREST`)
             ?.map(i => i.toUpperCase())
             ?.sort();
     } catch (e) {
