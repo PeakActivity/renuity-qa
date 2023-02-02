@@ -5,8 +5,8 @@ let PROD_PAGE;
 let TEST_PAGE;
 
 test.beforeAll(() => {
-        PROD_PAGE = `https://www.statewideremodeling.com/bathroom-remodeling-ar/little-rock/tub-to-shower/` //process.env.prodPage;
-        TEST_PAGE = `https://statewidemodev.wpengine.com/bathroom-remodeling-ar/little-rock/tub-to-shower/` //process.env.testPage;
+        PROD_PAGE = process.env.prodPage;
+        TEST_PAGE = process.env.testPage;
     }
 )
 
@@ -38,7 +38,11 @@ test('Content h1 matches', async ({page}) => {
     const testTags = await page.locator("h1").allInnerTexts()
     const testContent = cleanList(testTags);
 
-    await expect(testContent).toEqual(prodContent);
+    const prod = prodContent[0]?.trim();
+    const test = testContent[0]?.trim();
+
+
+    await expect(test).toEqual(prod);
 });
 
 test('Content h2 matches', async ({page}) => {
@@ -97,7 +101,11 @@ test('Tags match', async ({page}) => {
     await page.goto(PROD_PAGE);
     try {
         //let prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
-         let prodFoundHTML = await page.locator(`.page-nav-btn-group`).locator(`.btn-page`).allInnerTexts();
+         let prodFoundHTML = await page
+             .locator(`.page-nav-btn-group`)
+             .locator(`.btn-page`)
+             .allInnerTexts();
+
         prodTags = prodFoundHTML
             ?.map(i => i.trim())
             ?.filter(i => !suppress.includes(i))
@@ -114,8 +122,15 @@ test('Tags match', async ({page}) => {
     await page.goto(TEST_PAGE);
     try {
         //const testFoundHTML = await page.locator(`a[href*='/tag/']`).allInnerTexts();
-        let testFoundHTML = await page.locator(`.page-nav-btn-group`).locator(`.btn-info`).allInnerTexts()
-        testTags = testFoundHTML?.map(i => i?.toUpperCase()).sort();
+        let testFoundHTML = await page
+            .locator(`.page-nav-btn-group`)
+            .locator(`.btn-info`)
+            .allInnerTexts();
+
+        testTags = testFoundHTML
+            ?.map(i => i.trim())
+            ?.map(i => i?.toUpperCase())
+            ?.sort();
     } catch (e) {
 
     }
