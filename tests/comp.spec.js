@@ -5,8 +5,8 @@ let PROD_PAGE;
 let TEST_PAGE;
 
 test.beforeAll(() => {
-        PROD_PAGE = process.env.prodPage;
-        TEST_PAGE = process.env.testPage;
+        PROD_PAGE = `https://www.statewideremodeling.com/bathroom-remodeling-ar/little-rock/tub-to-shower/` //process.env.prodPage;
+        TEST_PAGE = `https://statewidemodev.wpengine.com/bathroom-remodeling-ar/little-rock/tub-to-shower/` //process.env.testPage;
     }
 )
 
@@ -90,16 +90,17 @@ test('Publish date matches', async ({page}) => {
     await expect(testDateFormatted).toEqual(prodDateFormatted);
 });
 
-test('Tags match', async ({page}) => {
+test.only('Tags match', async ({page}) => {
     let prodTags, testTags;
+    const suppress = [`LIKE US ON FACEBOOK`, `Follow us on Pinterest`, `PINTEREST`];
 
     await page.goto(PROD_PAGE);
     try {
-        const prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
+        //let prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
+         let prodFoundHTML = await page.locator(`.page-nav-btn-group`).locator(`.btn-page`).allInnerTexts();
         prodTags = prodFoundHTML
-            ?.filter(i => i !== `LIKE US ON FACEBOOK`)
-            ?.filter(i => i !== `Follow us on Pinterest`)
-            ?.filter(i => i !== `PINTEREST`)
+            ?.map(i => i.trim())
+            ?.filter(i => !suppress.includes(i))
             ?.map(i => i.toUpperCase())
             ?.sort();
     } catch (e) {
@@ -112,7 +113,8 @@ test('Tags match', async ({page}) => {
 
     await page.goto(TEST_PAGE);
     try {
-        const testFoundHTML = await page.locator(`a[href*='/tag/']`).allInnerTexts();
+        //const testFoundHTML = await page.locator(`a[href*='/tag/']`).allInnerTexts();
+        let testFoundHTML = await page.locator(`.page-nav-btn-group`).locator(`.btn-info`).allInnerTexts()
         testTags = testFoundHTML?.map(i => i?.toUpperCase()).sort();
     } catch (e) {
 
