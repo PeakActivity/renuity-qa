@@ -29,7 +29,7 @@ test('Descriptions match', async ({page}) => {
     await expect(testDescr).toEqual(prodDescr);
 });
 
-test.only('Content h1 matches', async ({page}) => {
+test('Content h1 matches', async ({page}) => {
     await page.goto(PROD_PAGE);
     const prodTags = await page.locator("h1").allInnerTexts()
     const prodContent = cleanList(prodTags);
