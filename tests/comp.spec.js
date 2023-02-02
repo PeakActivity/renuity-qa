@@ -90,7 +90,7 @@ test('Publish date matches', async ({page}) => {
     await expect(testDateFormatted).toEqual(prodDateFormatted);
 });
 
-test.only('Tags match', async ({page}) => {
+test('Tags match', async ({page}) => {
     let prodTags, testTags;
     const suppress = [`LIKE US ON FACEBOOK`, `Follow us on Pinterest`, `PINTEREST`];
 
