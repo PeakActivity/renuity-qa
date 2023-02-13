@@ -5,8 +5,8 @@ let PROD_PAGE;
 let TEST_PAGE;
 
 test.beforeAll(() => {
-       PROD_PAGE = `https://www.statewideremodeling.com/window-replacement-austin/casement-windows/`; //process.env.prodPage;
-       TEST_PAGE = `https://statewidemodev.wpengine.com/casement-windows/`; //process.env.testPage;
+       PROD_PAGE = process.env.prodPage;
+       TEST_PAGE = process.env.testPage;
     }
 )
 
