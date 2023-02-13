@@ -57,12 +57,14 @@ jobs:
         with:
           issue: ${{ github.event.client_payload.ticket }}
           comment: ${{ steps.format.outputs.results }}
+
       - name: Transition issue - pass
         if: ${{ steps.format.outputs.passed  == 'true'  }}
         uses: atlassian/gajira-transition@v3
         with:
           issue: ${{ github.event.client_payload.ticket }}
           transition: "DONE"
+          
       - name: Transition issue - fail
         if: ${{ !(steps.format.outputs.passed  == 'true'  ) }}
         uses: atlassian/gajira-transition@v3

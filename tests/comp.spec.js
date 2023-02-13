@@ -5,8 +5,8 @@ let PROD_PAGE;
 let TEST_PAGE;
 
 test.beforeAll(() => {
-       PROD_PAGE = process.env.prodPage;
-       TEST_PAGE = process.env.testPage;
+       PROD_PAGE = `https://www.statewideremodeling.com/window-replacement-austin/casement-windows/`; //process.env.prodPage;
+       TEST_PAGE = `https://statewidemodev.wpengine.com/casement-windows/`; //process.env.testPage;
     }
 )
 
@@ -22,10 +22,14 @@ test('Titles match', async ({page}) => {
 
 test('Descriptions match', async ({page}) => {
     await page.goto(PROD_PAGE);
-    const prodDescr = await page.locator('meta[name="description"]')?.getAttribute('content');
+    const prodDescr = await page
+        .locator('meta[name="description"]')
+        ?.getAttribute('content');
 
     await page.goto(TEST_PAGE);
-    const testDescr = await page.locator('meta[name="description"]')?.getAttribute('content');
+    const testDescr = await page
+        .locator('meta[name="description"]')
+        ?.getAttribute('content');
     await expect(testDescr).toEqual(prodDescr);
 });
 
@@ -138,4 +142,14 @@ test('Tags match', async ({page}) => {
 
     expect(testTags).toEqual(prodTags);
 
+});
+
+test('URL paths match', async ({page}) => {
+    await page.goto(PROD_PAGE);
+    const prodParts = (new URL(page.url())).pathname.split(`/`).filter(i => i);
+
+    await page.goto(TEST_PAGE);
+    const testParts = (new URL(page.url())).pathname.split(`/`).filter(i => i);
+
+    await expect(prodParts).toEqual(testParts);
 });
