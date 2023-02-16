@@ -39,11 +39,12 @@ test('Content h1 matches', async ({page}) => {
     const prodContent = cleanList(prodTags);
 
     await page.goto(TEST_PAGE);
-    const testTags = await page.locator("h1").allInnerTexts()
-    const testContent = cleanList(testTags);
+    // const testTags = await page.locator("h1").allInnerTexts()
+    // const testContent = cleanList(testTags);
+    const test = await page.locator("h1");
 
     const prod = prodContent[0];
-    const test = testContent[0];
+    // const test = testContent[0];
 
     // await expect(test).toEqual(prod);
     await expect(test).toHaveText(prod);
