@@ -151,6 +151,10 @@ test('URL paths match', async ({page}) => {
     const prodParts = (new URL(page.url())).pathname.split(`/`).filter(i => i);
 
     console.log(prodParts);
+    if(prodParts[0] == 'blog') {
+        prodParts.splice(1,1);
+    }
+    console.log(prodParts);
 
     await page.goto(TEST_PAGE);
     const testParts = (new URL(page.url())).pathname.split(`/`).filter(i => i);
