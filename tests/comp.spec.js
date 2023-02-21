@@ -150,8 +150,12 @@ test('URL paths match', async ({page}) => {
     await page.goto(PROD_PAGE);
     const prodParts = (new URL(page.url())).pathname.split(`/`).filter(i => i);
 
+    console.log(prodParts);
+
     await page.goto(TEST_PAGE);
     const testParts = (new URL(page.url())).pathname.split(`/`).filter(i => i);
+
+    console.log(testParts);
 
     await expect(testParts).toEqual(prodParts);
 });
