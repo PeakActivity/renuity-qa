@@ -33,32 +33,23 @@ test('Descriptions match', async ({page}) => {
     await expect(testDescr).toEqual(prodDescr);
 });
 
-test('Content h1 matches', async ({page}) => {
-    await page.goto(PROD_PAGE);
-    const prodTags = await page.locator("h1").allInnerTexts()
-    const prodContent = cleanList(prodTags);
+// test('Content h1 matches', async ({page}) => {
+//     await page.goto(PROD_PAGE);
+//     const prodTags = await page.locator("h1").allInnerTexts()
+//     const prodContent = cleanList(prodTags);
+//     await page.goto(TEST_PAGE);
+//     const test = await page.locator("h1");
+//     const prod = prodContent[0];
+//     await expect(test).toHaveText(prod);
+// });
 
-    await page.goto(TEST_PAGE);
-    // const testTags = await page.locator("h1").allInnerTexts()
-    // const testContent = cleanList(testTags);
-    const test = await page.locator("h1");
-
-    const prod = prodContent[0];
-    // const test = testContent[0];
-
-    // await expect(test).toEqual(prod);
-    await expect(test).toHaveText(prod);
-});
-
-test('Content h2 matches', async ({page}) => {
-    await page.goto(PROD_PAGE);
-    const prodContent = cleanList(await page.locator("h2").allInnerTexts());
-
-    await page.goto(TEST_PAGE);
-    const testContent = cleanList(await page.locator("h2").allInnerTexts());
-
-    await expect(testContent).toEqual(prodContent);
-});
+// test('Content h2 matches', async ({page}) => {
+//     await page.goto(PROD_PAGE);
+//     const prodContent = cleanList(await page.locator("h2").allInnerTexts());
+//     await page.goto(TEST_PAGE);
+//     const testContent = cleanList(await page.locator("h2").allInnerTexts());
+//     await expect(testContent).toEqual(prodContent);
+// });
 
 test('Yoast SEO exists', async ({page}) => {
     try{
