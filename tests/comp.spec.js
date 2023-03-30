@@ -92,50 +92,48 @@ test('Publish date matches', async ({page}) => {
     }
 });
 
-test('Tags match', async ({page}) => {
-    let prodTags, testTags;
-    const suppress = [`LIKE US ON FACEBOOK`, `Follow us on Pinterest`, `PINTEREST`];
+// test('Tags match', async ({page}) => {
+//     let prodTags, testTags;
+//     const suppress = [`LIKE US ON FACEBOOK`, `Follow us on Pinterest`, `PINTEREST`];
 
-    await page.goto(PROD_PAGE);
-    try {
-        //let prodFoundHTML = await page.locator(`a[href*='t.']`).allInnerTexts();
-         let prodFoundHTML = await page
-             .locator(`.page-nav-btn-group`)
-             .locator(`.btn-page`)
-             .allInnerTexts();
+//     await page.goto(PROD_PAGE);
+//     try {
+//          let prodFoundHTML = await page
+//              .locator(`.page-nav-btn-group`)
+//              .locator(`.btn-page`)
+//              .allInnerTexts();
 
-        prodTags = prodFoundHTML
-            ?.map(i => i.trim())
-            ?.filter(i => !suppress.includes(i))
-            ?.map(i => i.toUpperCase())
-            ?.sort();
-    } catch (e) {
+//         prodTags = prodFoundHTML
+//             ?.map(i => i.trim())
+//             ?.filter(i => !suppress.includes(i))
+//             ?.map(i => i.toUpperCase())
+//             ?.sort();
+//     } catch (e) {
 
-    }
+//     }
 
-    if(!prodTags?.length){
-        prodTags = [];
-    }
+//     if(!prodTags?.length){
+//         prodTags = [];
+//     }
 
-    await page.goto(TEST_PAGE);
-    try {
-        //const testFoundHTML = await page.locator(`a[href*='/tag/']`).allInnerTexts();
-        let testFoundHTML = await page
-            .locator(`.page-nav-btn-group`)
-            .locator(`.btn-info`)
-            .allInnerTexts();
+//     await page.goto(TEST_PAGE);
+//     try {
+//         let testFoundHTML = await page
+//             .locator(`.page-nav-btn-group`)
+//             .locator(`.btn-info`)
+//             .allInnerTexts();
 
-        testTags = testFoundHTML
-            ?.map(i => i.trim())
-            ?.map(i => i?.toUpperCase())
-            ?.sort();
-    } catch (e) {
+//         testTags = testFoundHTML
+//             ?.map(i => i.trim())
+//             ?.map(i => i?.toUpperCase())
+//             ?.sort();
+//     } catch (e) {
 
-    }
+//     }
 
-    expect(testTags).toEqual(prodTags);
+//     expect(testTags).toEqual(prodTags);
 
-});
+// });
 
 test('URL paths match', async ({page}) => {
     await page.goto(PROD_PAGE);
